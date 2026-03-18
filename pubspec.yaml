@@ -1,0 +1,34 @@
+name: debt_tracker
+description: "Offline-first debt and recurring payment follow-up app."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_riverpod: ^2.6.1
+  sqflite: ^2.3.3+1
+  path: ^1.9.0
+  path_provider: ^2.1.4
+  intl: ^0.20.2
+  uuid: ^4.5.1
+  flutter_local_notifications: ^20.1.0
+  flutter_timezone: ^4.1.1
+  shared_preferences: ^2.3.3
+  timezone: ^0.10.0
+  table_calendar: ^3.1.2
+  google_fonts: ^6.2.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/branding/debtly_logo.png
