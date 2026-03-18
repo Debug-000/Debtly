@@ -1,82 +1,80 @@
 # Debtly
 
-Debtly is an offline-first Flutter app for tracking personal debts, recurring payments, bills, salary impact, due dates, and reminders.
+Debtly is an offline-first Flutter app for tracking personal debts, recurring
+payments, installment plans, bills, due dates, reminders, and salary impact in
+one place.
 
-It is designed as a focused personal finance utility, not a full accounting system.
+It is designed as a focused personal finance utility, not a full accounting
+system. The goal is simple: know what is due, what was paid, what is overdue,
+and how much money is left for the month.
 
-## Security Posture
+## Why Debtly Exists
 
-Debtly has a low remote attack surface. It is an offline-first app with no
-backend, no cloud sync, no user accounts, and no access to sensitive device
-capabilities such as contacts, SMS, microphone, camera, or location. The main
-realistic risk is local privacy exposure if the device itself is compromised or
-if exported backup files are handled carelessly. Debtly is designed as a local
-utility app, not a connected data platform.
+Most people do not need a heavy budgeting suite to follow a few loans,
+subscriptions, family obligations, and monthly payments. Debtly is built for
+that narrower problem:
 
-## What Debtly Does
+- follow debts and recurring obligations clearly
+- mark payments without losing history
+- see due, overdue, and upcoming items fast
+- understand monthly salary impact
+- get reminders locally without depending on a backend
 
-- create debts, obligations, subscriptions, and one-time expenses
-- create recurring plans:
+## Screenshots
+
+Temporary placeholders are included below. Replace these image files later with
+your own app screenshots:
+
+- `assets/readme/overview_placeholder.svg`
+- `assets/readme/plans_placeholder.svg`
+- `assets/readme/timeline_placeholder.svg`
+- `assets/readme/salary_placeholder.svg`
+
+### Overview
+
+![Debtly Overview](assets/readme/overview_placeholder.svg)
+
+### Plans
+
+![Debtly Plans](assets/readme/plans_placeholder.svg)
+
+### Timeline
+
+![Debtly Timeline](assets/readme/timeline_placeholder.svg)
+
+### Salary
+
+![Debtly Salary](assets/readme/salary_placeholder.svg)
+
+## Core Features
+
+- offline-first local data storage
+- debts, obligations, subscriptions, and one-time expenses
+- recurring plans:
   - one time
   - monthly
   - yearly
   - custom interval
-- track payment cycles and payment history
-- support partial payments
-- show due, upcoming, overdue, completed, and closed items
-- track monthly salary and remaining balance
-- allow negative projected/remaining balance
-- send local reminders with no backend required
-- export a local backup file
+- partial payments and payment history
+- due, upcoming, overdue, completed, and closed states
+- salary-aware monthly balance tracking
+- negative balance support when spending exceeds salary
+- local reminders with no backend
+- backup export and local reset tools
+- premium dark-mode UI with selectable accent themes
 
-## Product Direction
+## How It Works
 
-Debtly is built to feel like a premium, calm, dark-mode utility app:
+Debtly separates plans from payment cycles and payment records. That makes the
+app more reliable for recurring financial data:
 
-- dark-only UI
-- selectable accent themes
-- local-first data model
-- clean reusable Flutter architecture
-- no demo records on first launch
+- a recurring plan stays intact over time
+- each due cycle can be tracked independently
+- payments can be partial or complete
+- reminders can be recalculated after edits
+- salary summaries are computed from real stored data
 
-## Tech Stack
-
-- Flutter
-- Riverpod
-- SQLite via `sqflite`
-- Local notifications via `flutter_local_notifications`
-- Timezone-aware scheduling via `timezone` + `flutter_timezone`
-
-## Architecture
-
-Project structure:
-
-- `lib/src/app`
-  - app shell and navigation
-- `lib/src/application`
-  - controller/providers
-- `lib/src/domain/models`
-  - entities, enums, app settings
-- `lib/src/domain/services`
-  - recurrence engine
-  - salary summary service
-  - notification service
-- `lib/src/data/local`
-  - SQLite database setup and migrations
-- `lib/src/data/repositories`
-  - repository abstraction and implementation
-- `lib/src/features`
-  - Overview
-  - Plans
-  - Timeline
-  - Salary
-  - Settings
-- `lib/src/core`
-  - theme, tokens, reusable widgets, helpers
-
-## Core Data Model
-
-Debtly stores structured local data in SQLite:
+The local SQLite data model includes:
 
 - `plans`
 - `occurrences`
@@ -85,40 +83,77 @@ Debtly stores structured local data in SQLite:
 - `salary_configs`
 - `settings`
 
-This separation matters:
+## Product Direction
 
-- recurring plans remain intact even after individual cycles are paid
-- payment history is preserved
-- reminders can be rescheduled after edits
-- salary summaries are recalculated from actual data
+Debtly is built as a calm, premium personal utility:
 
-## Key Behavior
+- dark-only UI
+- focused information hierarchy
+- minimal clutter
+- strong daily usability
+- local-first by default
+- no demo data on first launch
 
-- recurring occurrences are generated safely ahead of time
-- due-day edge cases are clamped correctly for short months
-- leap-year yearly recurrence is handled safely
-- partial payments reduce remaining occurrence balance
-- closed/completed items are retained before cleanup
-- reminders support due date, 1 day before, first day of month, salary day, and custom offsets
+## Security Posture
 
-## Notifications
+Debtly has a low remote attack surface. It has:
+
+- no backend
+- no cloud sync
+- no user accounts
+- no access to contacts, SMS, microphone, camera, or location
+
+The realistic risk is local privacy exposure if the device itself is compromised
+or if exported backup files are handled carelessly. Debtly is a local utility
+app, not a connected data platform.
+
+## Tech Stack
+
+- Flutter
+- Riverpod
+- SQLite via `sqflite`
+- local notifications via `flutter_local_notifications`
+- timezone-aware scheduling via `timezone` and `flutter_timezone`
+
+## Project Structure
+
+```text
+lib/src/
+  app/            app shell and navigation
+  application/    controller/providers
+  core/           theme, tokens, reusable widgets, helpers
+  data/           SQLite setup and repository implementation
+  domain/         models and business services
+  features/       Overview, Plans, Timeline, Salary, Settings
+```
+
+## Notification Support
 
 Debtly uses local notifications only.
 
 Implemented:
 
-- notification permission requests
-- exact alarm handling on Android
-- local scheduled reminders
+- runtime notification permission requests
+- Android exact alarm handling
+- scheduled local reminders
 - notification tap routing back into the app
-- hidden debug tools for notification testing
+- hidden internal debug tools for notification testing
 
-Notes:
+Current platform status:
 
 - Android support is actively tested
-- iOS support is implemented in code, but should still be validated on a real iPhone before relying on it in production
+- iOS support exists in code, but still needs real-device verification
 
-## Running the Project
+## Getting Started
+
+### Requirements
+
+- Flutter SDK
+- Dart SDK
+- Android SDK for Android builds
+- macOS + Xcode if you want to build for iPhone
+
+### Run the App
 
 From the project root:
 
@@ -127,7 +162,13 @@ flutter pub get
 flutter run
 ```
 
-## Android Release Build
+### Analyze the Project
+
+```bash
+flutter analyze
+```
+
+## Build for Android
 
 Standard release APK:
 
@@ -141,13 +182,13 @@ Smaller split APKs by CPU architecture:
 flutter build apk --release --split-per-abi
 ```
 
-App Bundle for Play Store:
+Play Store bundle:
 
 ```bash
 flutter build appbundle --release
 ```
 
-## iOS
+## Build for iPhone
 
 You cannot build iPhone binaries from Linux.
 
@@ -155,36 +196,40 @@ To build for iPhone you need:
 
 - macOS
 - Xcode
-- Apple signing/provisioning setup
+- Apple signing and provisioning
 
-## Local Data / Reset
+## Local Data, Backup, and Reset
 
-Debtly stores all data locally on-device.
+Debtly stores all user data locally on the device.
 
-You can:
+Available from the app:
 
-- export a backup from Settings
-- reset the app from Settings
-- clear app data from the OS
+- export a local backup
+- reset all local app data
+
+Available from the OS:
+
+- clear app data
+- uninstall the app
 
 ## Current Status
 
-What is working:
+Working well:
 
 - offline-first storage
-- recurring debt/payment tracking
-- payment history
+- debt and recurring payment tracking
+- payment history and partial payments
 - salary summary
-- local notifications on Android
+- Android local notifications
 - premium dark UI with accent themes
 
-What still deserves real-device verification:
+Still worth validating on real hardware:
 
-- iPhone notification behavior
+- iOS notification delivery
 - iOS notification tap routing
-- iOS layout pass on different screen sizes
+- layout behavior across multiple iPhone sizes
 
-## Contributing / Using This Repo
+## Contributing
 
 Debtly is source-visible and contribution-friendly, but it is not open source.
 
@@ -202,7 +247,7 @@ You may not:
 - publish modified copies
 - sell, sublicense, or white-label the project
 
-If you want to contribute:
+If you contribute:
 
 1. run `flutter pub get`
 2. run `flutter analyze`
