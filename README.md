@@ -4,6 +4,15 @@ Debtly is an offline-first Flutter app for tracking personal debts, recurring pa
 
 It is designed as a focused personal finance utility, not a full accounting system.
 
+## Security Posture
+
+Debtly has a low remote attack surface. It is an offline-first app with no
+backend, no cloud sync, no user accounts, and no access to sensitive device
+capabilities such as contacts, SMS, microphone, camera, or location. The main
+realistic risk is local privacy exposure if the device itself is compromised or
+if exported backup files are handled carelessly. Debtly is designed as a local
+utility app, not a connected data platform.
+
 ## What Debtly Does
 
 - create debts, obligations, subscriptions, and one-time expenses
@@ -177,17 +186,38 @@ What still deserves real-device verification:
 
 ## Contributing / Using This Repo
 
-If you pull this project:
+Debtly is source-visible and contribution-friendly, but it is not open source.
+
+You may:
+
+- review the code
+- run the project locally
+- propose fixes and improvements
+- submit pull requests
+
+You may not:
+
+- reuse this code in another app or service
+- redistribute the codebase
+- publish modified copies
+- sell, sublicense, or white-label the project
+
+If you want to contribute:
 
 1. run `flutter pub get`
 2. run `flutter analyze`
-3. run on Android first
-4. verify notifications on your own device
+3. test on Android first
+4. verify notifications on a real device
+5. add SQLite migrations for any persisted schema change
 
-If you modify database fields or settings, make sure to add a proper SQLite migration.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the contribution policy.
 
 ## License
 
-This project is licensed under the MIT License.
+This project is proprietary and all rights are reserved.
+
+Source code is visible for review and contribution purposes only. Reuse,
+redistribution, and derivative use require prior written permission from the
+author.
 
 See [LICENSE](LICENSE) for details.
